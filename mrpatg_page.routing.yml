@@ -1,0 +1,7 @@
+mrpatg_page.custom_page:
+  path: '/mrpatg/page1'
+  defaults:
+    _controller: '\Drupal\mrpatg_page\Controller\MrpatgPageController::mrpatgPage1'
+    _title: 'Challenge Number 1'
+  requirements:
+    _permission: 'access content'
