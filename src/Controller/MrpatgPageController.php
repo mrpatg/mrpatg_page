@@ -3,30 +3,41 @@
 namespace Drupal\mrpatg_page\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\node\Entity\Node;
 
-class MrpatgPageController extends ControllerBase {
+class MrpatgPageController extends ControllerBase
+{
 
-    public function mrpatgPage1() {
+    public function mrpatgPage1()
+    {
+ 
+        $db = \Drupal::database();
+        $query = $db->select('node', 'n');
+        $query->fields('n');
 
-        $values = [
-        'type' => 'page'
-        ];
-        $nodes = \Drupal::entityTypeManager()->getListBuilder('node')->getStorage()->loadByProperties($values);
+        $pager = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')
+                        ->limit(3);
+        $result = $pager->execute()->fetchAll();
+
+        $rows = array();
+
+        foreach ($result as $row) {
+            $title = Node::load($row->nid)->title->value;
         
-        $list = array();
-
-        foreach ($nodes AS $node){
-            $list[] = $node->get('title')->value;
+            $rows[] = array('data' => array(
+            'name' => $title,
+              ));
         }
+ 
+        $build['config_table'] = array(
+        '#theme' => item_list,
+        '#items' => $rows,
+        );
 
-        $content = [
-        '#theme' => 'item_list',
-        '#list_type' => 'ul',
-        '#title' => 'Page list',
-        '#items' => $list,
-        '#attributes' => ['class' => 'mrpatg_page1_list'],
-        '#wrapper_attributes' => ['class' => 'container'],
-        ]; 
-        return $content;
+        $build['pager'] = array(
+        '#type' => 'pager'
+        );
+ 
+        return $build;
     }
 }
