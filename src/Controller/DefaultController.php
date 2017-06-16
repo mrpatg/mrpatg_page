@@ -5,7 +5,7 @@ namespace Drupal\mrpatg_page\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\node\Entity\Node;
 
-class MrpatgPageController extends ControllerBase
+class MrpatgPage1Controller extends ControllerBase
 {
 
     public function mrpatgPage1()
@@ -30,14 +30,15 @@ class MrpatgPageController extends ControllerBase
         }
  
         $build['config_table'] = array(
-        '#theme' => item_list,
+        '#theme' => 'mrpatg_template',
         '#items' => $rows,
         );
 
         $build['pager'] = array(
         '#type' => 'pager'
         );
- 
+        
+        var_dump($build);
         return $build;
     }
 }

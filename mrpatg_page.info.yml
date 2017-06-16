@@ -1,5 +1,4 @@
 name: mrpatg page
 description: mrpatg's custom page module
-package: Custom
 type: module
 core: 8.x

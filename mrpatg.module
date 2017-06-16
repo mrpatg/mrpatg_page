@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Contains mrpatg.module..
+ */
+
+
+/**
+ * Implements hook_theme()
+ * @return mixed
+ */
+function acme_theme() {
+  $theme['mrpatg_template'] = [
+    'variables' => ['items' => NULL],
+    'template' => 'mrpatg',
+  ];
+
+  return $theme;
+}
